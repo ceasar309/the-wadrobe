@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply bg-accent text-black hover:bg-accent-hover active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply bg-green text-white hover:bg-green-hover active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply border border-border text-foreground hover:border-foreground bg-transparent;
+  }
+  .btn-ghost {
+    @apply text-muted hover:text-foreground bg-transparent;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+  .btn-whatsapp {
+    @apply bg-[#25D366] text-white hover:bg-[#1ebe5a];
+  }
+  .btn-sm {
+    @apply px-4 py-2 text-xs;
+  }
+  .btn-lg {
+    @apply px-8 py-4 text-base;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 bg-card border border-border rounded-lg text-foreground placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors;
+  }
+  .input-error {
+    @apply border-red-500 focus:border-red-500 focus:ring-red-500;
+  }
+  .label {
+    @apply block text-sm font-medium text-muted mb-1.5;
+  }
+
+  .card {
+    @apply bg-card border border-border rounded-xl overflow-hidden transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:border-muted hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold;
+  }
+  .badge-accent {
+    @apply bg-green text-black;
+  }
+  .badge-outline {
+    @apply border border-border text-muted;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold;
+  }
+  .section-subtitle {
+    @apply text-muted text-sm md:text-base;
+  }
+
+  .container-app {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .prose-custom {
+    @apply text-muted leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Toast styles */
+.toast {
+  @apply fixed bottom-6 left-1/2 -translate-x-1/2 z-50;
+}
