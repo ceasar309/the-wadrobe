@@ -1,9 +1,9 @@
-import { createServerComponentClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/server'
 import { CartSidebar } from '@/components/cart/CartSidebar'
 import { TrendingUp, DollarSign, ShoppingBag, Users, Package } from 'lucide-react'
 
 export default async function AdminAnalyticsPage() {
-  const supabase = createServerComponentClient()
+  const supabase = createAdminClient()
 
   const { data: orders } = await supabase.from('orders').select('*') as any
   const { data: products } = await supabase.from('products').select('*').eq('is_active', true) as any
@@ -67,3 +67,4 @@ export default async function AdminAnalyticsPage() {
     </>
   )
 }
+
