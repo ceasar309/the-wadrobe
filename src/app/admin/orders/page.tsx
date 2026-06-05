@@ -1,9 +1,9 @@
-import { createAdminClient } from '@/lib/supabase/server'
+import { createServerComponentClient } from '@/lib/supabase/server'
 import { CartSidebar } from '@/components/cart/CartSidebar'
 import OrderStatusBadge from '@/components/admin/OrderStatusBadge'
 
 export default async function AdminOrdersPage() {
-  const supabase = createAdminClient()
+  const supabase = createServerComponentClient()
   const { data: orders } = await supabase.from('orders').select('*').order('created_at', { ascending: false }) as any
 
   return (
@@ -59,4 +59,5 @@ export default async function AdminOrdersPage() {
     </>
   )
 }
+
 

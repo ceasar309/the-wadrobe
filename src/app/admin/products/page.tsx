@@ -1,10 +1,10 @@
-import { createAdminClient } from '@/lib/supabase/server'
+import { createServerComponentClient } from '@/lib/supabase/server'
 import { CartSidebar } from '@/components/cart/CartSidebar'
 import Link from 'next/link'
 import { Plus, Edit, Trash2 } from 'lucide-react'
 
 export default async function AdminProductsPage() {
-  const supabase = createAdminClient()
+  const supabase = createServerComponentClient()
   const { data: products } = await supabase.from('products').select('*').order('created_at', { ascending: false }) as any
 
   return (
@@ -76,4 +76,5 @@ export default async function AdminProductsPage() {
     </>
   )
 }
+
 

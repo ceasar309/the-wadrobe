@@ -1,10 +1,10 @@
-import { createAdminClient } from '@/lib/supabase/server'
+import { createServerComponentClient } from '@/lib/supabase/server'
 import { CartSidebar } from '@/components/cart/CartSidebar'
 import Link from 'next/link'
 import { Package, ShoppingBag, Users, TrendingUp, DollarSign, AlertTriangle } from 'lucide-react'
 
 export default async function AdminDashboard() {
-  const supabase = createAdminClient()
+  const supabase = createServerComponentClient()
 
   const { count: totalOrders } = await supabase.from('orders').select('*', { count: 'exact', head: true }) as any
   const { count: totalProducts } = await supabase.from('products').select('*', { count: 'exact', head: true }) as any
@@ -102,4 +102,5 @@ export default async function AdminDashboard() {
     </>
   )
 }
+
 

@@ -1,8 +1,8 @@
-import { createAdminClient } from '@/lib/supabase/server'
+import { createServerComponentClient } from '@/lib/supabase/server'
 import { CartSidebar } from '@/components/cart/CartSidebar'
 
 export default async function AdminUsersPage() {
-  const supabase = createAdminClient()
+  const supabase = createServerComponentClient()
   const { data: users } = await supabase.from('users').select('*').order('created_at', { ascending: false }) as any
 
   return (
@@ -47,4 +47,5 @@ export default async function AdminUsersPage() {
     </>
   )
 }
+
 
