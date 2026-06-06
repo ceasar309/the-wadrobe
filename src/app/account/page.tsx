@@ -2,7 +2,7 @@ import { createServerComponentClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { CartSidebar } from '@/components/cart/CartSidebar'
 import Link from 'next/link'
-import { Package, Heart, Settings, LogOut } from 'lucide-react'
+import { Package, Heart, Settings, LogOut, Shield } from 'lucide-react'
 
 export default async function AccountPage() {
   const supabase = createServerComponentClient()
@@ -40,6 +40,14 @@ export default async function AccountPage() {
             <p className="text-xs text-muted mt-1">Profile, password, preferences</p>
             <Link href="/account/settings" className="btn btn-outline btn-sm mt-4 inline-flex">Manage</Link>
           </div>
+          {profile?.role === 'admin' && (
+            <div className="card p-6 border-accent/30">
+              <Shield size={24} className="text-accent mb-3" />
+              <h3 className="font-semibold">Admin Dashboard</h3>
+              <p className="text-xs text-muted mt-1">Manage products, orders, coupons</p>
+              <Link href="/admin" className="btn btn-primary btn-sm mt-4 inline-flex">Go to Admin</Link>
+            </div>
+          )}
         </div>
 
         {recentOrders && recentOrders.length > 0 && (

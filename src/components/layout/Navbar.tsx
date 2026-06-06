@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ShoppingBag, Menu, X, User, Search } from 'lucide-react'
-import { useState } from 'react'
+import { ShoppingBag, Menu, X, User, Search, Shield } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { useCart } from '@/components/cart/CartProvider'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -21,10 +21,21 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
   const { totalItems, toggleCart } = useCart()
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data?.user) {
+        supabase.from('users').select('role').eq('id', data.user.id).single().then(({ data: profile }: any) => {
+          if (profile?.role === 'admin') setIsAdmin(true)
+        })
+      }
+    })
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -118,9 +129,14 @@ export function Navbar() {
             <Link href="/account" onClick={() => setMobileOpen(false)} className="py-3 text-muted hover:text-foreground text-sm font-medium tracking-wider uppercase border-b border-border">
               My Account
             </Link>
-            <Link href="/wishlist" onClick={() => setMobileOpen(false)} className="py-3 text-muted hover:text-foreground text-sm font-medium tracking-wider uppercase">
+            <Link href="/wishlist" onClick={() => setMobileOpen(false)} className="py-3 text-muted hover:text-foreground text-sm font-medium tracking-wider uppercase border-b border-border">
               Wishlist
             </Link>
+            {isAdmin && (
+              <Link href="/admin" onClick={() => setMobileOpen(false)} className="py-3 text-accent hover:text-foreground text-sm font-medium tracking-wider uppercase flex items-center gap-2">
+                <Shield size={16} /> Admin
+              </Link>
+            )}
           </nav>
         </div>
       )}
